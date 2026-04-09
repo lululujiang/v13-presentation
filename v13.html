@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026交付中心TL述职 - 猎聘橙极客定制版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        liepin: '#FF7900',
+                        liepinLight: '#FFE3CC',
+                        liepinDark: '#D96600',
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', '"Helvetica Neue"', 'Helvetica', 'Arial', '"PingFang SC"', 'sans-serif'],
+                    },
+                    animation: {
+                        blob: 'blob 10s infinite alternate',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #F0F4F8; color: #1E293B; }
+        
+        .slide-container { transition: transform 0.8s cubic-bezier(0.65, 0, 0.15, 1); }
+        .slide { height: 100vh; width: 100vw; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+        
+        .tech-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        }
+
+        .anim-elem { opacity: 0; transform: translateY(50px) scale(0.95); transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .slide.active .anim-elem { opacity: 1; transform: translateY(0) scale(1); }
+        .slide.active .delay-100 { transition-delay: 100ms; }
+        .slide.active .delay-200 { transition-delay: 200ms; }
+        .slide.active .delay-300 { transition-delay: 300ms; }
+        .slide.active .delay-400 { transition-delay: 400ms; }
+        
+        .bento-card { 
+            background: rgba(255, 255, 255, 0.65); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8); 
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07); 
+            border-radius: 1.5rem; 
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            box-shadow: 0 15px 45px rgba(255, 121, 0, 0.15);
+            border-color: rgba(255, 121, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .dot { width: 6px; height: 30px; border-radius: 3px; background-color: rgba(0,0,0,0.1); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); cursor: pointer; }
+        .dot.active { background-color: #FF7900; height: 50px; box-shadow: 0 0 15px rgba(255, 121, 0, 0.6); }
+
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center">
+        <div class="absolute w-[60vw] h-[60vw] bg-liepinLight rounded-full mix-blend-multiply filter blur-[120px] opacity-60 animate-blob top-[-10%] left-[-10%]"></div>
+        <div class="absolute w-[50vw] h-[50vw] bg-orange-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-60 animate-blob top-[20%] right-[-10%]" style="animation-delay: 2s;"></div>
+        <div class="absolute w-[70vw] h-[70vw] bg-blue-50 rounded-full mix-blend-multiply filter blur-[120px] opacity-60 animate-blob bottom-[-20%] left-[10%]" style="animation-delay: 4s;"></div>
+        <div class="tech-grid"></div>
+    </div>
+
+    <div class="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50" id="dots-container"></div>
+
+    <div id="slider" class="slide-container w-full h-screen relative z-10">
+        
+        <div class="slide active px-12" id="slide-0">
+            <div class="w-full max-w-6xl mx-auto mt-10">
+                <div class="text-left mb-16 anim-elem relative">
+                    <div class="absolute -left-6 top-2 bottom-2 w-2 bg-gradient-to-b from-liepin to-transparent rounded-full"></div>
+                    <h1 class="text-7xl font-black tracking-tighter mb-4 text-liepin drop-shadow-sm">2026交付中心 TL述职</h1>
+                    <div class="flex items-center gap-4 mt-6">
+                        <span class="bg-gradient-to-r from-liepin to-liepinDark text-white px-6 py-2 rounded-full font-bold shadow-lg shadow-orange-500/30 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Q1 战绩全景
+                        </span>
+                        <span class="text-2xl text-gray-700 font-bold tracking-widest uppercase">/ 熊佳浈 /</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-6 anim-elem delay-200">
+                    <div class="bento-card p-8 relative overflow-hidden group">
+                        <p class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Q1 总业绩 (万)</p>
+                        <h2 class="text-5xl font-black text-gray-900 drop-shadow-md">49.8<span class="text-2xl text-liepin">W</span></h2>
+                        <div class="mt-4 flex items-center text-sm font-bold text-gray-400">
+                            <span>精准定值：498,007.2</span>
+                        </div>
+                    </div>
+                    <div class="bento-card p-8 bg-gradient-to-br from-white to-orange-50/50">
+                        <p class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">业绩增长引擎</p>
+                        <h2 class="text-5xl font-black text-liepin drop-shadow-md">+3.7%</h2>
+                        <div class="mt-4 w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                            <div class="bg-liepin h-2 rounded-full w-full animate-pulse"></div>
+                        </div>
+                    </div>
+                    <div class="bento-card p-8 relative">
+                        <p class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">目标完成率</p>
+                        <div class="flex items-end gap-2">
+                            <h2 class="text-5xl font-black text-gray-900 drop-shadow-md">83<span class="text-3xl">%</span></h2>
+                        </div>
+                        <div class="mt-4 inline-block bg-red-100 text-red-600 px-3 py-1 rounded-md text-xs font-bold border border-red-200">
+                            ⚠️ 距离达百差17%
+                        </div>
+                    </div>
+                    <div class="bento-card p-8 border-b-4 border-b-liepin">
+                        <p class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">顾问单人产值</p>
+                        <h2 class="text-5xl font-black text-gray-900 drop-shadow-md">2.8<span class="text-2xl text-liepin">W</span></h2>
+                        <p class="mt-4 text-sm font-bold text-gray-400">高效赋能输出</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide px-12" id="slide-1">
+            <div class="w-full max-w-6xl mx-auto flex gap-8 h-[80vh]">
+                <div class="w-1/3 flex flex-col justify-center gap-6 anim-elem">
+                    <h2 class="text-4xl font-black mb-6 text-liepin">过程指标雷达</h2>
+                    <div class="bento-card p-6 flex items-center justify-between relative overflow-hidden">
+                        <div class="absolute right-[-10%] top-[-20%] w-20 h-20 bg-liepin opacity-10 rounded-full blur-xl"></div>
+                        <div>
+                            <p class="text-gray-500 text-sm font-bold mb-1">接单量</p>
+                            <p class="text-4xl font-black font-mono text-gray-800">395</p>
+                        </div>
+                        <div class="h-12 w-1 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+                        <div>
+                            <p class="text-gray-500 text-sm font-bold mb-1">运单量</p>
+                            <p class="text-4xl font-black font-mono text-gray-800">306</p>
+                        </div>
+                    </div>
+                    <div class="bento-card p-8 bg-gradient-to-br from-liepin to-liepinDark text-white shadow-2xl shadow-orange-500/30 transform hover:scale-105 transition-transform border-none">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="font-bold text-white/90 tracking-wider text-lg">核心推面比</span>
+                            <span class="text-5xl font-black text-white drop-shadow-md">14%</span>
+                        </div>
+                        <div class="w-full h-px bg-white/30 mb-6"></div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-sm text-white/90 flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
+                                小易筛选开启率
+                            </span>
+                            <span class="text-2xl font-black text-white">100%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-2/3 bento-card p-8 flex flex-col anim-elem delay-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-2xl font-black text-gray-800">全链路交付漏斗模型</h3>
+                        <span class="bg-orange-100 text-liepin text-xs font-bold px-3 py-1 rounded-full border border-orange-200">实时转化数据</span>
+                    </div>
+                    <div id="funnelChart" class="flex-grow w-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide px-12" id="slide-2">
+            <div class="w-full max-w-6xl mx-auto flex flex-col justify-center h-[90vh]">
+                <div class="flex justify-between items-end mb-6 anim-elem">
+                    <h2 class="text-4xl font-black text-liepin drop-shadow-sm">猎小易 AI 赋能全景剖析</h2>
+                    <div class="flex items-center gap-3 bg-white/60 px-4 py-2 rounded-full border border-white shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-liepin animate-ping"></span>
+                        <span class="text-sm font-bold text-gray-600">数据追踪：2026年1月 - 3月 (7名顾问)</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-12 gap-6 mb-6">
+                    <div class="col-span-8 grid grid-cols-4 gap-4 anim-elem delay-100">
+                        <div class="bento-card p-5 border-t-4 border-t-gray-800 flex flex-col justify-center">
+                            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">总运行次数</p>
+                            <h2 class="text-3xl font-black font-mono text-gray-900">1,409<span class="text-sm font-sans ml-1 text-gray-400">次</span></h2>
+                        </div>
+                        <div class="bento-card p-5 border-t-4 border-t-gray-800 flex flex-col justify-center">
+                            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">总运行订单数</p>
+                            <h2 class="text-3xl font-black font-mono text-gray-900">673<span class="text-sm font-sans ml-1 text-gray-400">单</span></h2>
+                        </div>
+                        <div class="bento-card p-5 border-t-4 border-t-liepin bg-gradient-to-br from-white to-orange-50/50 flex flex-col justify-center">
+                            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">加入职位候选人</p>
+                            <h2 class="text-3xl font-black font-mono text-gray-900">4,328<span class="text-sm font-sans ml-1 text-gray-400">人</span></h2>
+                        </div>
+                        <div class="bento-card p-5 border-t-4 border-t-liepin bg-gradient-to-br from-white to-orange-50/50 flex flex-col justify-center">
+                            <p class="text-liepin text-xs font-bold uppercase tracking-wider mb-1">推荐候选人数</p>
+                            <h2 class="text-3xl font-black font-mono text-liepin">621<span class="text-sm font-sans ml-1 opacity-60">人</span></h2>
+                        </div>
+                    </div>
+
+                    <div class="col-span-4 bento-card p-5 bg-gradient-to-br from-liepin to-liepinDark text-white anim-elem delay-200 shadow-xl shadow-orange-500/40 border-none relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white rounded-full blur-3xl opacity-20"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-sm font-bold tracking-widest text-white/90 uppercase mb-3 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                整体效率洞察
+                            </h3>
+                            <div class="space-y-3 mb-4">
+                                <div class="bg-black/10 p-2.5 rounded-lg border border-white/20 text-sm backdrop-blur-sm">
+                                    <span class="text-white/90">平均 <strong class="text-white text-base">2.27次</strong> 运行 ➔ 产生 <strong class="text-white text-base">1名</strong> 推荐人选</span>
+                                </div>
+                                <div class="bg-black/10 p-2.5 rounded-lg border border-white/20 text-sm backdrop-blur-sm">
+                                    <span class="text-white/90">平均 <strong class="text-white text-base">1次</strong> 运行 ➔ 加入 <strong class="text-white text-base">3.07名</strong> 候选人</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-white/30 pt-3">
+                                <p class="text-sm leading-relaxed"><span class="bg-white text-liepin px-1.5 py-0.5 rounded text-xs font-bold mr-1">习惯养成</span> 团队已形成稳定高频使用习惯。</p>
+                                <p class="text-sm leading-relaxed mt-1.5"><span class="bg-red-500 text-white px-1.5 py-0.5 rounded text-xs font-bold mr-1">风险预警</span> 推荐转化差异大(0.23~0.70)，需拉齐标准。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card p-6 h-[45vh] flex flex-col anim-elem delay-300 border border-liepin/20 shadow-lg shadow-orange-500/10">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-black text-gray-800">顾问猎小易使用效能对比矩阵 (7人组全景)</h3>
+                        <span class="bg-orange-100 text-liepin text-xs font-bold px-3 py-1 rounded-full border border-orange-200">柱状图:候选人 / 折线图:运行次数</span>
+                    </div>
+                    <div id="xiaoyiChart" class="flex-grow w-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide px-12" id="slide-3">
+            <div class="w-full max-w-6xl mx-auto flex flex-col h-[85vh] justify-center">
+                <h2 class="text-4xl font-black mb-8 text-liepin anim-elem">团队管理与行为罗盘</h2>
+                <div class="grid grid-cols-12 gap-6 h-[60vh]">
+                    <div class="col-span-5 bento-card p-8 flex flex-col justify-between anim-elem delay-100 relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-32 h-32 bg-gradient-to-br from-liepinLight to-transparent rounded-bl-full opacity-50 z-0"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-black text-gray-800 mb-6 flex items-center gap-2">
+                                <svg class="w-6 h-6 text-liepin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                团队战力盘点
+                            </h3>
+                            <div class="grid grid-cols-2 gap-6 mt-6">
+                                <div class="bg-white/50 p-4 rounded-2xl border border-white">
+                                    <p class="text-gray-500 mb-1 font-bold text-sm">战斗序列</p>
+                                    <p class="text-4xl font-black text-gray-900">7<span class="text-sm text-gray-500 ml-1">人</span></p>
+                                </div>
+                                <div class="bg-red-50/50 p-4 rounded-2xl border border-red-100">
+                                    <p class="text-gray-500 mb-1 font-bold text-sm">主动流失</p>
+                                    <p class="text-3xl font-black text-red-500">12.5%</p>
+                                    <p class="text-xs text-red-400 mt-1">流失顾问: 1人</p>
+                                </div>
+                            </div>
+                            <div class="mt-8 bg-gray-50/80 p-5 rounded-2xl border border-gray-100">
+                                <div class="flex justify-between items-end mb-2">
+                                    <p class="font-bold text-gray-800">业绩达标率矩阵 <span class="text-xs text-gray-500 font-normal">(≥80%)</span></p>
+                                    <p class="font-black text-liepin text-xl">100% <span class="text-xs text-gray-500">KPI达标</span></p>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-5 flex overflow-hidden shadow-inner">
+                                    <div class="bg-gradient-to-r from-orange-400 to-liepin h-5 flex justify-center items-center text-xs font-bold text-white transition-all duration-1000" style="width: 71.4%">71.4% (5人)</div>
+                                    <div class="bg-gray-300 h-5 flex justify-center items-center text-xs font-bold text-gray-600" style="width: 28.6%">未达标(2人)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-7 bento-card p-8 flex flex-col justify-between anim-elem delay-300">
+                        <h3 class="text-xl font-black text-gray-800 mb-6 flex items-center gap-2">
+                            <svg class="w-6 h-6 text-liepin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            顾问行为量化洞察
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/60 p-5 rounded-2xl border border-white hover:border-liepin/30 transition-colors">
+                                <p class="text-gray-500 text-sm font-bold mb-2">总拨打量 (个)</p>
+                                <div class="flex justify-between items-end">
+                                    <p class="text-4xl font-black font-mono text-gray-800">7,361</p>
+                                    <span class="flex items-center text-sm font-bold text-red-500 bg-red-50 px-2 py-1 rounded">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                                        -30.25%
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="bg-white/60 p-5 rounded-2xl border border-white hover:border-liepin/30 transition-colors">
+                                <p class="text-gray-500 text-sm font-bold mb-2">通话总时长 (分钟)</p>
+                                <div class="flex justify-between items-end">
+                                    <p class="text-4xl font-black font-mono text-gray-800">28,628</p>
+                                    <span class="flex items-center text-sm font-bold text-red-500 bg-red-50 px-2 py-1 rounded">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                                        -37.33%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-5 bg-gradient-to-r from-liepinLight/50 to-transparent rounded-2xl border-l-4 border-l-liepin flex items-start gap-4">
+                            <div class="bg-liepin text-white p-2 rounded-lg shadow-md mt-1">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-gray-800 mb-1">数据波动深度归因</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    1. 团队人员变动（减少1名顾问）；<br>
+                                    2. <strong>绩效规则重构引擎：</strong>引导顾问从“量”转向“质”，更注重有效电话个数和推荐量达成。本季度<strong>人均推荐呈上升趋势</strong>。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide px-12" id="slide-4">
+            <div class="w-full max-w-6xl mx-auto">
+                <h2 class="text-4xl font-black mb-8 text-liepin anim-elem">项目攻坚与复盘沙盘</h2>
+                <div class="bento-card overflow-hidden mb-8 anim-elem delay-100 border border-liepin/20 shadow-lg shadow-orange-500/10">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-liepin to-[#E66D00] text-white text-sm uppercase tracking-widest font-black">
+                                <th class="p-5">重点攻坚项目</th>
+                                <th class="p-5">投入兵力</th>
+                                <th class="p-5">输出推荐量</th>
+                                <th class="p-5">成功面试</th>
+                                <th class="p-5">斩获 Offer</th>
+                                <th class="p-5 text-white bg-white/10">转化漏斗率</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200/50 bg-white/60">
+                            <tr class="hover:bg-white transition-colors group">
+                                <td class="p-5 font-black text-lg text-gray-900 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-green-500 group-hover:animate-ping"></span>大疆
+                                </td>
+                                <td class="p-5 font-mono font-bold">5 人</td>
+                                <td class="p-5 font-mono text-gray-600">98</td>
+                                <td class="p-5 font-mono text-gray-600">50</td>
+                                <td class="p-5 font-mono font-bold text-gray-900">10</td>
+                                <td class="p-5 font-black text-xl text-liepin bg-orange-50/50">10.2%</td>
+                            </tr>
+                            <tr class="hover:bg-white transition-colors group">
+                                <td class="p-5 font-black text-lg text-gray-900 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-red-400"></span>东软捷泰
+                                </td>
+                                <td class="p-5 font-mono font-bold">3 人</td>
+                                <td class="p-5 font-mono text-gray-600">15</td>
+                                <td class="p-5 font-mono text-gray-600">2</td>
+                                <td class="p-5 font-mono font-bold text-gray-900">0</td>
+                                <td class="p-5 font-black text-xl text-gray-400 bg-gray-50/50">0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bento-card p-6 border-t-4 border-t-green-500 anim-elem delay-200 hover:-translate-y-2">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-4 text-green-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h4 class="font-black text-gray-900 mb-2 text-lg">高光策略 (做对的事)</h4>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <p><span class="font-bold text-gray-800">执行：</span>每日复核数据，每周复盘推进</p>
+                            <p><span class="font-bold text-gray-800">战果：</span>顾问有效推荐、流程中人选双提升</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bento-card p-6 border-t-4 border-t-red-500 anim-elem delay-300 hover:-translate-y-2">
+                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-4 text-red-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        </div>
+                        <h4 class="font-black text-gray-900 mb-2 text-lg">痛点反思 (做错的事)</h4>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <p><span class="font-bold text-gray-800">事故：</span>背调把控弱，致 Q1 turn down 近 20w</p>
+                            <p><span class="font-bold text-gray-800">迭代：</span>前置干预，建立风险预判雷达机制</p>
+                        </div>
+                    </div>
+
+                    <div class="bento-card p-6 border-t-4 border-t-blue-500 anim-elem delay-400 hover:-translate-y-2">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-4 text-blue-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h4 class="font-black text-gray-900 mb-2 text-lg">组织进化 (能力提升)</h4>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <p><span class="font-bold text-gray-800">赋能：</span>高频培训 9 场，穿透覆盖 63 人次</p>
+                            <p><span class="font-bold text-gray-800">蜕变：</span>财务向互联网技术开发成功转型</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide px-12" id="slide-5">
+            <div class="w-full max-w-6xl mx-auto flex flex-col justify-center h-[90vh]">
+                <h2 class="text-4xl font-black mb-8 text-liepin anim-elem">Q2 战役部署规划</h2>
+                <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-4 bento-card p-8 bg-gradient-to-br from-liepin to-liepinDark text-white anim-elem delay-100 border-none shadow-2xl shadow-orange-500/40 relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white rounded-full blur-3xl opacity-20"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-sm font-bold tracking-widest text-white/90 uppercase mb-2">Q2 战役总目标预测</h3>
+                            <div class="mb-8">
+                                <p class="text-7xl font-black text-white drop-shadow-lg">84<span class="text-2xl opacity-80">W</span></p>
+                                <div class="inline-block mt-3 bg-white/20 text-white px-4 py-1.5 rounded-full text-sm font-bold border border-white/40 backdrop-blur-md shadow-sm">
+                                    🚀 目标完成率预测: 107%
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-black/10 p-4 rounded-xl backdrop-blur-sm flex justify-between items-center border border-white/10">
+                                    <span class="text-white/90 font-medium">基石：待入职业绩</span>
+                                    <span class="font-black text-xl text-white">23 W</span>
+                                </div>
+                                <div class="bg-black/10 p-4 rounded-xl backdrop-blur-sm flex justify-between items-center border border-white/10">
+                                    <span class="text-white/90 font-medium">防线：待过保业绩</span>
+                                    <span class="font-black text-xl text-white">3.6 W</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-8 flex flex-col gap-6 anim-elem delay-200">
+                        <div class="bento-card p-6 border-t-4 border-t-liepin">
+                            <h3 class="text-lg font-black text-gray-900 mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-liepin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                核心人效跃迁计划
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-orange-50/50 p-4 rounded-xl border border-orange-100">
+                                    <p class="text-xs text-gray-500 font-bold mb-1">单人产值突破</p>
+                                    <p class="text-lg font-black"><span class="text-gray-400 line-through mr-2">2.8w</span><span class="text-liepin">3.2w 🎯</span></p>
+                                    <p class="text-xs text-gray-600 mt-2">提升推荐精准度，拉大转化漏斗</p>
+                                </div>
+                                <div class="bg-orange-50/50 p-4 rounded-xl border border-orange-100">
+                                    <p class="text-xs text-gray-500 font-bold mb-1">人均交付提升</p>
+                                    <p class="text-lg font-black"><span class="text-gray-400 line-through mr-2">2.2w</span><span class="text-liepin">2.6w 🎯</span></p>
+                                    <p class="text-xs text-gray-600 mt-2">深耕专业度，强力锁死offer流失</p>
+                                </div>
+                                <div class="bg-orange-50/50 p-4 rounded-xl border border-orange-100">
+                                    <p class="text-xs text-gray-500 font-bold mb-1">全员达标率</p>
+                                    <p class="text-lg font-black"><span class="text-gray-400 line-through mr-2">71.4%</span><span class="text-liepin">100% 🎯</span></p>
+                                    <p class="text-xs text-gray-600 mt-2">异常闪电替换，流程不断流</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6 h-full">
+                            <div class="bento-card p-6 bg-gradient-to-b from-white to-gray-50">
+                                <h4 class="font-black text-gray-900 mb-3 text-sm tracking-widest uppercase">三大必赢管理动作</h4>
+                                <ul class="space-y-3 text-sm text-gray-700">
+                                    <li class="flex gap-2">
+                                        <span class="text-liepin font-black">01</span>
+                                        <p><strong>突击扩军：</strong>4月底前硬性斩获1名正式顾问入职。</p>
+                                    </li>
+                                    <li class="flex gap-2">
+                                        <span class="text-liepin font-black">02</span>
+                                        <p><strong>铁腕治军：</strong>带教无效的员工，立马优化换新。</p>
+                                    </li>
+                                    <li class="flex gap-2">
+                                        <span class="text-liepin font-black">03</span>
+                                        <p><strong>微观巡查：</strong>每天检查顾问人选跟进表，死守达标率。</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bento-card p-6 bg-gradient-to-b from-white to-red-50/50 border-t-4 border-t-red-500">
+                                <h4 class="font-black text-red-600 mb-3 text-sm tracking-widest uppercase">风险预警与火力支援</h4>
+                                <ul class="space-y-3 text-sm text-gray-700">
+                                    <li class="flex gap-2 items-start">
+                                        <svg class="w-4 h-4 text-red-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                        <p><strong>兵力与经验断层：</strong>引入实习生梯队(3-4名)；启动长远晋升激励机制。</p>
+                                    </li>
+                                    <li class="flex gap-2 items-start mt-4 pt-4 border-t border-red-100">
+                                        <svg class="w-4 h-4 text-liepin mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                        <p><strong>呼叫总部火力：</strong>需《互联网职位地毯式解析》及《AI行业前沿动态》基础培训支持。</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalSlides = 6;
+            let currentSlide = 0;
+            let isScrolling = false;
+            const slider = document.getElementById('slider');
+            const dotsContainer = document.getElementById('dots-container');
+
+            for(let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = `dot ${i === 0 ? 'active' : ''}`;
+                dot.addEventListener('click', () => navigateTo(i));
+                dotsContainer.appendChild(dot);
+            }
+            const dots = document.querySelectorAll('.dot');
+
+            function updateUI() {
+                slider.style.transform = `translateY(-${currentSlide * 100}vh)`;
+                dots.forEach((dot, index) => { dot.classList.toggle('active', index === currentSlide); });
+                document.querySelectorAll('.slide').forEach((slide, index) => {
+                    if(index === currentSlide) slide.classList.add('active');
+                    else slide.classList.remove('active');
+                });
+            }
+
+            function navigateTo(index) {
+                if(isScrolling || index < 0 || index >= totalSlides) return;
+                isScrolling = true;
+                currentSlide = index;
+                updateUI();
+                setTimeout(() => { isScrolling = false; }, 800); 
+            }
+
+            window.addEventListener('wheel', (e) => {
+                if(isScrolling) return;
+                if(e.deltaY > 0) navigateTo(currentSlide + 1);
+                else if(e.deltaY < 0) navigateTo(currentSlide - 1);
+            }, { passive: false });
+
+            window.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowDown' || e.key === 'PageDown') navigateTo(currentSlide + 1);
+                else if(e.key === 'ArrowUp' || e.key === 'PageUp') navigateTo(currentSlide - 1);
+            });
+
+            // ==================== 渲染漏斗图 (Slide 2) ====================
+            const funnelDom = document.getElementById('funnelChart');
+            const funnelChart = echarts.init(funnelDom);
+            const funnelOption = {
+                color: ['#D84315', '#EF6C00', '#F57C00', '#FF9800', '#FFB74D'],
+                tooltip: { trigger: 'item', formatter: '{b} : {c} 个', backgroundColor: 'rgba(255,255,255,0.95)', borderColor: '#FF7900', borderWidth: 2, textStyle: { color: '#333', fontWeight: 'bold' } },
+                series: [{
+                    name: '全链路漏斗', type: 'funnel', left: '10%', right: '10%', top: '5%', bottom: '5%', width: '80%', sort: 'descending', gap: 8, 
+                    label: { show: true, position: 'inside', formatter: '{b}\n{c}', fontSize: 16, fontWeight: '900', fontFamily: 'monospace', color: '#fff', textShadowColor: 'rgba(0,0,0,0.3)', textShadowBlur: 4, textShadowOffsetX: 1, textShadowOffsetY: 2 },
+                    labelLine: { length: 20, lineStyle: { width: 2, type: 'solid' } },
+                    itemStyle: { borderColor: '#ffffff', borderWidth: 3, borderRadius: 8, shadowBlur: 20, shadowColor: 'rgba(255, 121, 0, 0.3)', shadowOffsetX: 0, shadowOffsetY: 8 },
+                    data: [ { value: 1868, name: '推荐量' }, { value: 395, name: '接单量' }, { value: 306, name: '运单量' }, { value: 261, name: '面试成功' }, { value: 30, name: '斩获 Offer' } ]
+                }]
+            };
+            funnelChart.setOption(funnelOption);
+
+            // ==================== 渲染猎小易 7人全景柱折混合图 (Slide 3) ====================
+            const xiaoyiDom = document.getElementById('xiaoyiChart');
+            const xiaoyiChart = echarts.init(xiaoyiDom);
+            const xiaoyiOption = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderColor: '#FF7900',
+                    textStyle: { color: '#333' }
+                },
+                legend: {
+                    data: ['加入职位候选人', '推荐候选人', '运行次数'],
+                    bottom: 0,
+                    textStyle: { fontWeight: 'bold', color: '#4B5563' }
+                },
+                grid: { left: '3%', right: '3%', bottom: '12%', top: '15%', containLabel: true },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ['黄兰波', '李婧林', '魏来', '周亮辉', '曾银', '黄园园', '贺媛媛'],
+                        axisLabel: { fontWeight: 'bold', color: '#1F2937' },
+                        axisLine: { lineStyle: { color: '#D1D5DB' } }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '候选人数 (人)',
+                        nameTextStyle: { fontWeight: 'bold', color: '#6B7280' },
+                        axisLabel: { color: '#6B7280', fontFamily: 'monospace' },
+                        splitLine: { lineStyle: { type: 'dashed', color: '#E5E7EB' } }
+                    },
+                    {
+                        type: 'value',
+                        name: '运行次数 (次)',
+                        nameTextStyle: { fontWeight: 'bold', color: '#3B82F6' },
+                        axisLabel: { color: '#3B82F6', fontFamily: 'monospace' },
+                        splitLine: { show: false }
+                    }
+                ],
+                series: [
+                    {
+                        name: '加入职位候选人',
+                        type: 'bar',
+                        data: [1389, 309, 796, 572, 334, 456, 472],
+                        itemStyle: { color: '#FFE3CC', borderRadius: [4, 4, 0, 0] },
+                        barWidth: '30%'
+                    },
+                    {
+                        name: '推荐候选人',
+                        type: 'bar',
+                        data: [184, 112, 101, 31, 74, 63, 56],
+                        itemStyle: { color: '#FF7900', borderRadius: [4, 4, 0, 0], shadowBlur: 10, shadowColor: 'rgba(255, 121, 0, 0.3)' },
+                        barWidth: '30%'
+                    },
+                    {
+                        name: '运行次数',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        data: [540, 267, 164, 135, 113, 110, 80],
+                        itemStyle: { color: '#3B82F6' },
+                        lineStyle: { width: 3, shadowBlur: 8, shadowColor: 'rgba(59, 130, 246, 0.4)' },
+                        symbolSize: 8,
+                        smooth: true
+                    }
+                ]
+            };
+            xiaoyiChart.setOption(xiaoyiOption);
+
+            // 自适应重绘
+            window.addEventListener('resize', () => { 
+                funnelChart.resize(); 
+                xiaoyiChart.resize();
+            });
+        });
+    </script>
+</body>
+</html>
